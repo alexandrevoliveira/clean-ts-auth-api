@@ -1,0 +1,12 @@
+import { AnyEntity, Dictionary, EntityData, IWrappedEntity, Populate } from '../typings';
+import { AssignOptions } from './EntityAssigner';
+export declare abstract class BaseEntity<T extends AnyEntity<T>, PK extends keyof T, P extends Populate<T> | unknown = unknown> implements IWrappedEntity<T, PK, P> {
+    isInitialized(): boolean;
+    populated(populated?: boolean): void;
+    toReference(): any;
+    toObject(ignoreFields?: string[]): Dictionary;
+    toJSON(...args: any[]): Dictionary;
+    toPOJO(): EntityData<T>;
+    assign(data: EntityData<T>, options?: AssignOptions): T;
+    init(populated?: boolean): Promise<T>;
+}
