@@ -2,6 +2,7 @@
   "name": "clean-ts-auth-api",
   "version": "0.0.0",
   "description": "Professional API using Clean Architecture and TDD.",
+  "license": "GPL-3.0-or-later",
   "keywords": [
     "clean architecture",
     "clean code",
