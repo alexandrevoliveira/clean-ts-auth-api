@@ -38,6 +38,8 @@
 
 > ## Code Smells (Anti-Patterns)
 
+* Blank Lines
+* Comments
 * Data Clumps
 * Divergent Change
 * Duplicate Code
