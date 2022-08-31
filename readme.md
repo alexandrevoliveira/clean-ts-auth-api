@@ -72,11 +72,14 @@
 * Typescript
 * Git
 * Jest
+* Ts-Jest
+* Jest-Mock-Extended
 * TypeORM
 * Axios
 * Postgres
 * JsonWebToken
 * Express
+* Cors
 * Supertest
 * Husky
 * Lint Staged
@@ -86,6 +89,10 @@
 * In-Memory Postgres Server
 * Module-Alias
 * Npm Check
+* Travis CI
+* Coveralls
+* DotEnv
+* Ts-Node-Dev
 
 > ## Features do Typescript
 
