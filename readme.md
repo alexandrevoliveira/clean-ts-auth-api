@@ -75,6 +75,8 @@
 * Ts-Jest
 * Jest-Mock-Extended
 * TypeORM
+* Aws-Sdk
+* UUID
 * Axios
 * Postgres
 * JsonWebToken
