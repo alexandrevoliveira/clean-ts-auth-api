@@ -75,7 +75,8 @@
 * Ts-Jest
 * Jest-Mock-Extended
 * TypeORM
-* Aws-Sdk
+* AWS-SDK
+* Multer
 * UUID
 * Axios
 * Postgres
