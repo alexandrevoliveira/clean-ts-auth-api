@@ -37,7 +37,7 @@ describe('PgUserProfileRepository', () => {
       const { id } = await pgUserRepo.save({ email: 'any_email', initials: 'any_initials' })
 
       await sut.savePicture({ id: id.toString(), pictureUrl: 'any_url' })
-      const pgUser = await pgUserRepo.findOne(id)
+      const pgUser = await pgUserRepo.findOne({ where: { id } })
 
       expect(pgUser).toMatchObject({ id, pictureUrl: 'any_url', initials: null })
     })

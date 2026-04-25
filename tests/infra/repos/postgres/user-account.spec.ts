@@ -55,7 +55,7 @@ describe('PgUserAccountRepository', () => {
         email: 'any_email',
         facebookId: 'any_fb_id'
       })
-      const pgUser = await pgUserRepo.findOne({ email: 'any_email' })
+      const pgUser = await pgUserRepo.findOne({ where: { email: 'any_email' } })
 
       expect(pgUser?.id).toBe(1)
       expect(id).toBe('1')
@@ -74,7 +74,7 @@ describe('PgUserAccountRepository', () => {
         email: 'new_email',
         facebookId: 'new_fb_id'
       })
-      const pgUser = await pgUserRepo.findOne({ id: 1 })
+      const pgUser = await pgUserRepo.findOne({ where: { id: 1 } })
 
       expect(pgUser).toMatchObject({
         id: 1,
@@ -109,7 +109,7 @@ describe('PgUserAccountRepository', () => {
         email: 'any_email',
         password: 'any_hashed_password'
       })
-      const pgUser = await pgUserRepo.findOne({ email: 'any_email' })
+      const pgUser = await pgUserRepo.findOne({ where: { email: 'any_email' } })
 
       expect(pgUser?.id).toBe(1)
       expect(id).toBe('1')

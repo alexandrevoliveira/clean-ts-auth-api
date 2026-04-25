@@ -10,6 +10,12 @@ export const makeFakeDb = async (entities?: any[]): Promise<IMemoryDb> => {
     returns: DataType.text,
     implementation: () => 'test'
   })
+  db.public.registerFunction({
+    name: 'version',
+    args: [],
+    returns: DataType.text,
+    implementation: () => 'PostgreSQL 14.0'
+  })
   const connection = await db.adapters.createTypeormConnection({
     type: 'postgres',
     entities: entities ?? ['src/infra/repos/postgres/entities/index.ts']
