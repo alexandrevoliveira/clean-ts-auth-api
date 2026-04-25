@@ -3,26 +3,26 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 @Entity({ name: 'users' })
 export class PgUser {
   @PrimaryGeneratedColumn()
-    id!: number
+  id!: number
 
   @Column({ nullable: true })
-    name?: string
+  name?: string
 
   @Column()
-    email!: string
+  email!: string
 
   @Column({ nullable: true })
-    password?: string
+  password?: string
 
   @Column({ name: 'is_admin', default: false })
-    isAdmin!: string
+  isAdmin!: string
 
   @Column({ name: 'facebook_id', nullable: true })
-    facebookId?: string
+  facebookId?: string
 
   @Column({ name: 'picture_url', nullable: true })
-    pictureUrl?: string
+  pictureUrl?: string
 
   @Column({ nullable: true })
-    initials?: string
+  initials?: string
 }
