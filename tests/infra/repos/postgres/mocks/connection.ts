@@ -16,11 +16,12 @@ export const makeFakeDb = async (entities?: any[]): Promise<IMemoryDb> => {
     returns: DataType.text,
     implementation: () => 'PostgreSQL 14.0'
   })
-  const connection = await db.adapters.createTypeormConnection({
+  const dataSource = db.adapters.createTypeormDataSource({
     type: 'postgres',
     entities: entities ?? ['src/infra/repos/postgres/entities/index.ts']
   })
-  await connection.synchronize()
-  await PgConnection.getInstance().connect()
+  await dataSource.initialize()
+  await dataSource.synchronize()
+  await PgConnection.getInstance().connect(dataSource)
   return db
 }
