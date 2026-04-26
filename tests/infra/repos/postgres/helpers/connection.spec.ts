@@ -21,6 +21,7 @@ describe('PgConnection', () => {
   let queryRunnerGetRepositorySpy: jest.Mock
   let dataSourceGetRepositorySpy: jest.Mock
   let newDataSourceSpy: jest.Mock
+  let dataSourceInstance: any
   let sut: PgConnection
 
   beforeAll(() => {
@@ -36,20 +37,23 @@ describe('PgConnection', () => {
       rollbackTransaction: rollbackTransactionSpy,
       manager: { getRepository: queryRunnerGetRepositorySpy }
     })
-    initializeSpy = jest.fn(async function (this: any) {
-      this.isInitialized = true
-      return this
+    initializeSpy = jest.fn(async () => {
+      dataSourceInstance.isInitialized = true
+      return dataSourceInstance
     })
-    destroySpy = jest.fn(async function (this: any) {
-      this.isInitialized = false
+    destroySpy = jest.fn(async () => {
+      dataSourceInstance.isInitialized = false
     })
     dataSourceGetRepositorySpy = jest.fn().mockReturnValue('any_repo')
-    newDataSourceSpy = jest.fn(function (this: any) {
-      this.isInitialized = false
-      this.initialize = initializeSpy
-      this.destroy = destroySpy
-      this.createQueryRunner = createQueryRunnerSpy
-      this.getRepository = dataSourceGetRepositorySpy
+    newDataSourceSpy = jest.fn(() => {
+      dataSourceInstance = {
+        isInitialized: false,
+        initialize: initializeSpy,
+        destroy: destroySpy,
+        createQueryRunner: createQueryRunnerSpy,
+        getRepository: dataSourceGetRepositorySpy
+      }
+      return dataSourceInstance
     })
     jest.mocked(DataSource).mockImplementation(newDataSourceSpy as any)
   })
