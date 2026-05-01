@@ -17,9 +17,6 @@ export class PgUser {
   @Column({ name: 'is_admin', default: false })
   isAdmin!: string
 
-  @Column({ name: 'facebook_id', nullable: true })
-  facebookId?: string
-
   @Column({ name: 'picture_url', nullable: true })
   pictureUrl?: string
 

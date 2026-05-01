@@ -18,8 +18,12 @@ export class PgConnection implements DbTransaction {
 
   async connect (dataSource?: DataSource): Promise<void> {
     if (this.dataSource?.isInitialized === true) return
-    const source = dataSource ?? new DataSource(require(path.resolve('ormconfig.js')) as DataSourceOptions)
+    const source = dataSource ?? new DataSource(this.getDataSourceOptions())
     this.dataSource = source.isInitialized ? source : await source.initialize()
+  }
+
+  private getDataSourceOptions (): DataSourceOptions {
+    return require(path.resolve('ormconfig.js')) as DataSourceOptions
   }
 
   async disconnect (): Promise<void> {

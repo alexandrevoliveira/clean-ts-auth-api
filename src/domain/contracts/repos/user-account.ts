@@ -10,20 +10,6 @@ export namespace LoadUserAccount {
   }
 }
 
-export interface SaveFacebookAccount {
-  saveWithFacebook: (input: SaveFacebookAccount.Input) => Promise<SaveFacebookAccount.Output>
-}
-
-export namespace SaveFacebookAccount {
-  export type Input = {
-    id?: string
-    email: string
-    name: string
-    facebookId: string
-  }
-  export type Output = { id: string }
-}
-
 export interface CheckUserAccountByEmail {
   checkByEmail: (input: CheckUserAccountByEmail.Input) => Promise<CheckUserAccountByEmail.Output>
 }
