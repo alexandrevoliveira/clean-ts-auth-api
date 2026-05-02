@@ -1,9 +1,10 @@
-import { CompareFieldError, InvalidEmailError } from '@/application/errors'
+import { CompareFieldError, InvalidEmailError, RequiredFieldError, UnauthorizedError } from '@/application/errors'
 import { PgUser } from '@/infra/repos/postgres/entities'
 import { PgConnection } from '@/infra/repos/postgres/helpers'
 import { app } from '@/main/config/app'
 import { makeFakeDb } from '@/tests/infra/repos/postgres/mocks'
 
+import bcrypt from 'bcrypt'
 import { IBackup } from 'pg-mem'
 import { Repository } from 'typeorm'
 import request from 'supertest'
@@ -77,7 +78,7 @@ describe('Login Routes', () => {
     })
 
     it('should return 400 with ItemInUseError', async () => {
-      await pgUserRepo.save({ name: 'any_name', email: 'any_email@mail.com' })
+      await pgUserRepo.save({ name: 'any_name', email: 'any_email@mail.com', password: 'any_hashed_password' })
 
       const { status, body } = await request(app)
         .post('/api/signup')
@@ -90,6 +91,59 @@ describe('Login Routes', () => {
 
       expect(status).toBe(400)
       expect(body.error).toBe(new ItemInUseError('email').message)
+    })
+  })
+
+  describe('POST /login', () => {
+    it('should return 200 with accessToken on valid credentials', async () => {
+      const hashedPassword = await bcrypt.hash('12345', 12)
+      await pgUserRepo.save({ name: 'any_name', email: 'any_email@mail.com', password: hashedPassword })
+
+      const { status, body } = await request(app)
+        .post('/api/login')
+        .send({ email: 'any_email@mail.com', password: '12345' })
+
+      expect(status).toBe(200)
+      expect(body.accessToken).toBeDefined()
+    })
+
+    it('should return 400 with RequiredFieldError when password is missing', async () => {
+      const { status, body } = await request(app)
+        .post('/api/login')
+        .send({ email: 'any_email@mail.com' })
+
+      expect(status).toBe(400)
+      expect(body.error).toBe(new RequiredFieldError('password').message)
+    })
+
+    it('should return 400 with InvalidEmailError when email is malformed', async () => {
+      const { status, body } = await request(app)
+        .post('/api/login')
+        .send({ email: 'any_email', password: '12345' })
+
+      expect(status).toBe(400)
+      expect(body.error).toBe(new InvalidEmailError().message)
+    })
+
+    it('should return 401 when email is not registered', async () => {
+      const { status, body } = await request(app)
+        .post('/api/login')
+        .send({ email: 'unknown@mail.com', password: '12345' })
+
+      expect(status).toBe(401)
+      expect(body.error).toBe(new UnauthorizedError().message)
+    })
+
+    it('should return 401 when password is wrong', async () => {
+      const hashedPassword = await bcrypt.hash('12345', 12)
+      await pgUserRepo.save({ name: 'any_name', email: 'any_email@mail.com', password: hashedPassword })
+
+      const { status, body } = await request(app)
+        .post('/api/login')
+        .send({ email: 'any_email@mail.com', password: 'wrong_password' })
+
+      expect(status).toBe(401)
+      expect(body.error).toBe(new UnauthorizedError().message)
     })
   })
 })

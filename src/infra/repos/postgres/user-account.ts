@@ -9,7 +9,8 @@ export class PgUserAccountRepository extends PgRepository implements LoadUserAcc
     if (pgUser !== null) {
       return {
         id: pgUser.id.toString(),
-        name: pgUser.name ?? undefined
+        name: pgUser.name ?? undefined,
+        password: pgUser.password
       }
     }
   }

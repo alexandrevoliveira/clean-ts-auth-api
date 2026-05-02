@@ -8,3 +8,15 @@ export namespace HashGenerator {
   }
   export type Output = string
 }
+
+export interface HashComparer {
+  compare: (input: HashComparer.Input) => Promise<HashComparer.Output>
+}
+
+export namespace HashComparer {
+  export type Input = {
+    value: string
+    hash: string
+  }
+  export type Output = boolean
+}

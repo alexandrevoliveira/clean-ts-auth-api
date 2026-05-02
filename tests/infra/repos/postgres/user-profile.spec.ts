@@ -34,7 +34,7 @@ describe('PgUserProfileRepository', () => {
 
   describe('savePicture', () => {
     it('should update user profile', async () => {
-      const { id } = await pgUserRepo.save({ email: 'any_email', initials: 'any_initials' })
+      const { id } = await pgUserRepo.save({ email: 'any_email', password: 'any_hashed_password', initials: 'any_initials' })
 
       await sut.savePicture({ id: id.toString(), pictureUrl: 'any_url' })
       const pgUser = await pgUserRepo.findOne({ where: { id } })
@@ -45,7 +45,7 @@ describe('PgUserProfileRepository', () => {
 
   describe('load', () => {
     it('should load user profile', async () => {
-      const { id } = await pgUserRepo.save({ email: 'any_email', name: 'any_name' })
+      const { id } = await pgUserRepo.save({ email: 'any_email', password: 'any_hashed_password', name: 'any_name' })
 
       const userProfile = await sut.load({ id: id.toString() })
 
@@ -53,7 +53,7 @@ describe('PgUserProfileRepository', () => {
     })
 
     it('should load user profile', async () => {
-      const { id } = await pgUserRepo.save({ email: 'any_email' })
+      const { id } = await pgUserRepo.save({ email: 'any_email', password: 'any_hashed_password' })
 
       const userProfile = await sut.load({ id: id.toString() })
 

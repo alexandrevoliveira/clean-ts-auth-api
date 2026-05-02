@@ -33,12 +33,12 @@ describe('PgUserAccountRepository', () => {
   })
 
   describe('load', () => {
-    it('should return an account if email exists', async () => {
-      await pgUserRepo.save({ email: 'any_email' })
+    it('should return account id, name and password if email exists', async () => {
+      await pgUserRepo.save({ name: 'any_name', email: 'any_email', password: 'any_hashed_password' })
 
       const account = await sut.load({ email: 'any_email' })
 
-      expect(account).toEqual({ id: '1' })
+      expect(account).toEqual({ id: '1', name: 'any_name', password: 'any_hashed_password' })
     })
 
     it('should return undefined if email does not exists', async () => {
@@ -50,7 +50,7 @@ describe('PgUserAccountRepository', () => {
 
   describe('checkByEmail', () => {
     it('should return true if email exists', async () => {
-      await pgUserRepo.save({ email: 'any_email' })
+      await pgUserRepo.save({ email: 'any_email', password: 'any_hashed_password' })
 
       const account = await sut.checkByEmail({ email: 'any_email' })
 

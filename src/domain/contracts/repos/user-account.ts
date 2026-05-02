@@ -7,6 +7,7 @@ export namespace LoadUserAccount {
   export type Output = undefined | {
     id: string
     name?: string
+    password: string
   }
 }
 

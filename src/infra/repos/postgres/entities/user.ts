@@ -11,8 +11,8 @@ export class PgUser {
   @Column()
   email!: string
 
-  @Column({ nullable: true })
-  password?: string
+  @Column()
+  password!: string
 
   @Column({ name: 'is_admin', default: false })
   isAdmin!: string

@@ -38,7 +38,7 @@ describe('User Routes', () => {
     })
 
     it('should return 200 with valid data', async () => {
-      const { id } = await pgUserRepo.save({ email: 'any_email', name: 'any name' })
+      const { id } = await pgUserRepo.save({ email: 'any_email', password: 'any_hashed_password', name: 'any name' })
       const authorization = sign({ key: id }, env.jwtSecret)
 
       const { status, body } = await request(app)
@@ -66,7 +66,7 @@ describe('User Routes', () => {
 
     it('should return 200 with valid data', async () => {
       uploadSpy.mockResolvedValueOnce('any_url')
-      const { id } = await pgUserRepo.save({ email: 'any_email', name: 'any name' })
+      const { id } = await pgUserRepo.save({ email: 'any_email', password: 'any_hashed_password', name: 'any name' })
       const authorization = sign({ key: id }, env.jwtSecret)
 
       const { status, body } = await request(app)
