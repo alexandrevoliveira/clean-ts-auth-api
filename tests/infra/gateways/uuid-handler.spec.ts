@@ -8,7 +8,7 @@ describe('UUIDHandler', () => {
   let sut: UUIDHandler
 
   beforeAll(() => {
-    jest.mocked(v4).mockReturnValue('any_uuid')
+    jest.mocked(v4 as () => string).mockReturnValue('any_uuid')
   })
 
   beforeEach(() => {
