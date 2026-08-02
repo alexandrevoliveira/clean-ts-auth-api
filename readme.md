@@ -92,8 +92,6 @@
 * In-Memory Postgres Server
 * Module-Alias
 * Npm Check
-* Travis CI
-* Coveralls
 * DotEnv
 * Ts-Node-Dev
 

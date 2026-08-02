@@ -45,7 +45,6 @@
     "test:staged": "npm t -- --findRelatedTests",
     "test:coverage": "npm t -- --coverage",
     "test:integration": "npm t -- --config ./jest.integration.config.js",
-    "test:coveralls": "npm run test:coverage && coveralls < coverage/lcov.info",
     "test:s3": "npm run test:integration -- ./tests/external/aws-s3-file-storage.test.ts"
   },
   "dependencies": {
@@ -76,7 +75,6 @@
     "@types/supertest": "^2.0.12",
     "@types/uuid": "^8.3.4",
     "axios": "^1.1.3",
-    "coveralls": "^3.1.1",
     "dotenv": "^16.0.3",
     "eslint": "^9.39.4",
     "git-commit-msg-linter": "^4.2.1",
