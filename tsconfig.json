@@ -10,9 +10,10 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
+    "baseUrl": "src",
     "paths": {
-      "@/*": ["./src/*"],
-      "@/tests/*": ["./tests/*"]
+      "@/*": ["*"],
+      "@/tests/*": ["../tests/*"]
     },
     "strict": true,
     "noImplicitOverride": true,
