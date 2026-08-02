@@ -44,7 +44,7 @@ export class ValidationBuilder {
     if (typeof this.value === 'string') {
       this.validators.push(new Email(this.value))
     }
-    if (typeof this.value.email === 'string') {
+    if (typeof this.value?.email === 'string') {
       this.validators.push(new Email(this.value.email))
     }
     return this
